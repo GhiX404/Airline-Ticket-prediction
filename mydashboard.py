@@ -62,7 +62,10 @@ elif section == "Visualizations":
     # Correlation Matrix
     st.subheader("Correlation Matrix")
     dataset_choice = st.radio("Choose dataset:", ["Raw Dataset", "Preprocessed Dataset"])
-    corr = df_raw.corr() if dataset_choice == "Raw Dataset" else df_preprocessed.corr()
+    if dataset_choice == "Raw Dataset":
+        corr = df_raw.select_dtypes(include=["float64", "int64"]).corr()
+    else:
+        corr = df_preprocessed.select_dtypes(include=["float64", "int64"]).corr()
 
     fig, ax = plt.subplots(figsize=(10, 8))
     sns.heatmap(corr, annot=True, cmap="coolwarm", ax=ax)
