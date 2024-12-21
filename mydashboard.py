@@ -17,8 +17,8 @@ except Exception as e:
     st.stop()
 
 # Title and Description
-st.title("Interactive Dashboard: Airline Ticket Price Prediction")
-st.markdown("### Compare Raw and Preprocessed Dataset Performance")
+st.title("Airline Ticket Price Prediction")
+st.markdown("### Comparison of Raw and Preprocessed Dataset Performance")
 
 # Sidebar Navigation
 st.sidebar.title("Navigation")
