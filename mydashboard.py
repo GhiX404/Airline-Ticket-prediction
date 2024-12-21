@@ -78,7 +78,7 @@ elif section == "Model Metrics":
     # Predefined metrics
     metrics = pd.DataFrame({
         "Metric": ["MSE", "RMSE", "MAE"],
-        "Raw Dataset": [260836.4356233017, 0, 393.12334665334663],
+        "Raw Dataset": [260836.4356233017, 496.3489738461734, 393.12334665334663],
         "Preprocessed Dataset": [1.2219043903413065, 1.1053978425622635, 0.8259553567977507]
     })
 
