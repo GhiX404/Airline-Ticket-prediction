@@ -92,5 +92,5 @@ elif section == "Model Metrics":
         plt.ylabel(metric)
         plt.xticks(rotation=0)
         st.pyplot(fig)
-        print(Raw = , metrics["Raw Dataset"])
-        print(Pre-processed = , metrics["Preprocessed Dataset"])
+        print("\nRaw = ", metrics["Raw Dataset"])
+        print("\nPre-processed = ", metrics["Preprocessed Dataset"])
