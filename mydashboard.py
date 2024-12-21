@@ -77,14 +77,18 @@ elif section == "Model Metrics":
 
     # Predefined metrics
     metrics = pd.DataFrame({
-        "Metric": ["MSE", "RMSE", "MAE"],
-        "Raw Dataset": [260836.4356233017, 496.3489738461734, 393.12334665334663],
-        "Preprocessed Dataset": [1.2219043903413065, 1.1053978425622635, 0.8259553567977507]
+        "Metric": ["MSE", "RMSE", "MAE", "R^2"],
+        "Raw Dataset": [246362.30383814935, 496.3489738461734, 382.28405344655346, -0.8523880366909471],
+        "Preprocessed Dataset": [1.1443164911162431, 1.069727297546549, 0.7738112517956844, -0.41186258255288366]
     })
 
-    st.markdown("#### Metrics Comparison")
-    fig, ax = plt.subplots(figsize=(8, 6))
-    metrics.set_index("Metric").plot(kind="bar", ax=ax)
-    plt.title("Comparison of Metrics")
-    plt.ylabel("Value")
-    st.pyplot(fig)
+    # Separate graphs for each metric
+    for metric in metrics["Metric"]:
+        st.markdown(f"#### {metric} Comparison")
+        fig, ax = plt.subplots(figsize=(8, 4))
+        metric_data = metrics.set_index("Metric").loc[metric]
+        metric_data.plot(kind="bar", ax=ax, color=["blue", "green"])
+        plt.title(f"{metric} Comparison")
+        plt.ylabel(metric)
+        plt.xticks(rotation=0)
+        st.pyplot(fig)
