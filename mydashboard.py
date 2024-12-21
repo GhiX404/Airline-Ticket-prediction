@@ -3,6 +3,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+import numpy as np
 
 # Load datasets from GitHub repository
 preprocessed_data_path = "https://raw.githubusercontent.com/GhiX404/Airline-Ticket-prediction/refs/heads/main/air_ticket_data_preprocessed.csv"
@@ -75,26 +77,35 @@ elif section == "Visualizations":
 elif section == "Model Metrics":
     st.header("Model Metrics")
 
-    # Inputs for metrics
-    st.markdown("#### Metrics Input")
-    raw_mse = st.number_input("Raw Dataset MSE", min_value=0.0, value=0.0)
-    raw_rmse = st.number_input("Raw Dataset RMSE", min_value=0.0, value=0.0)
-    raw_mae = st.number_input("Raw Dataset MAE", min_value=0.0, value=0.0)
+    # Automatically calculate metrics from existing data
+    try:
+        raw_y_true = df_raw["Ticket Price (USD)"]  # Assuming "Ticket Price (USD)" is the target column
+        raw_y_pred = df_raw["Predicted Price"]  # Assuming "Predicted Price" exists in the raw dataset
 
-    pre_mse = st.number_input("Preprocessed Dataset MSE", min_value=0.0, value=0.0)
-    pre_rmse = st.number_input("Preprocessed Dataset RMSE", min_value=0.0, value=0.0)
-    pre_mae = st.number_input("Preprocessed Dataset MAE", min_value=0.0, value=0.0)
+        pre_y_true = df_preprocessed["Ticket Price (USD)"]
+        pre_y_pred = df_preprocessed["Predicted Price"]
 
-    # Metrics Comparison
-    metrics = pd.DataFrame({
-        "Metric": ["MSE", "RMSE", "MAE"],
-        "Raw Dataset": [raw_mse, raw_rmse, raw_mae],
-        "Preprocessed Dataset": [pre_mse, pre_rmse, pre_mae]
-    })
+        raw_mse = mean_squared_error(raw_y_true, raw_y_pred)
+        raw_rmse = np.sqrt(raw_mse)
+        raw_mae = mean_absolute_error(raw_y_true, raw_y_pred)
 
-    st.markdown("#### Metrics Comparison")
-    fig, ax = plt.subplots(figsize=(8, 6))
-    metrics.set_index("Metric").plot(kind="bar", ax=ax)
-    plt.title("Comparison of Metrics")
-    plt.ylabel("Value")
-    st.pyplot(fig)
+        pre_mse = mean_squared_error(pre_y_true, pre_y_pred)
+        pre_rmse = np.sqrt(pre_mse)
+        pre_mae = mean_absolute_error(pre_y_true, pre_y_pred)
+
+        # Metrics Comparison
+        metrics = pd.DataFrame({
+            "Metric": ["MSE", "RMSE", "MAE"],
+            "Raw Dataset": [raw_mse, raw_rmse, raw_mae],
+            "Preprocessed Dataset": [pre_mse, pre_rmse, pre_mae]
+        })
+
+        st.markdown("#### Metrics Comparison")
+        fig, ax = plt.subplots(figsize=(8, 6))
+        metrics.set_index("Metric").plot(kind="bar", ax=ax)
+        plt.title("Comparison of Metrics")
+        plt.ylabel("Value")
+        st.pyplot(fig)
+
+    except KeyError as e:
+        st.error(f"KeyError: {e}. Ensure the required columns exist in the datasets.")
