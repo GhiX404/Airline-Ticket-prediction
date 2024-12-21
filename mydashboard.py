@@ -75,21 +75,11 @@ elif section == "Visualizations":
 elif section == "Model Metrics":
     st.header("Model Metrics")
 
-    # Inputs for metrics
-    st.markdown("#### Metrics Input")
-    raw_mse = st.number_input("Raw Dataset MSE", min_value=0.0, value=0.0)
-    raw_rmse = st.number_input("Raw Dataset RMSE", min_value=0.0, value=0.0)
-    raw_mae = st.number_input("Raw Dataset MAE", min_value=0.0, value=0.0)
-
-    pre_mse = st.number_input("Preprocessed Dataset MSE", min_value=0.0, value=0.0)
-    pre_rmse = st.number_input("Preprocessed Dataset RMSE", min_value=0.0, value=0.0)
-    pre_mae = st.number_input("Preprocessed Dataset MAE", min_value=0.0, value=0.0)
-
-    # Metrics Comparison
+    # Predefined metrics
     metrics = pd.DataFrame({
         "Metric": ["MSE", "RMSE", "MAE"],
-        "Raw Dataset": [raw_mse, raw_rmse, raw_mae],
-        "Preprocessed Dataset": [pre_mse, pre_rmse, pre_mae]
+        "Raw Dataset": [260836.4356233017, 0, 393.12334665334663],
+        "Preprocessed Dataset": [1.2219043903413065, 1.1053978425622635, 0.8259553567977507]
     })
 
     st.markdown("#### Metrics Comparison")
