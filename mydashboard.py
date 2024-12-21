@@ -96,5 +96,5 @@ elif section == "Model Metrics":
         # Display metric values below the graph
         raw_value = metric_data["Raw Dataset"]
         preprocessed_value = metric_data["Preprocessed Dataset"]
-        st.write(f"**Raw Dataset {metric}:** {raw_value:.4f}")
-        st.write(f"**Preprocessed Dataset {metric}:** {preprocessed_value:.4f}")
+        st.write(f"**Raw Dataset :** {raw_value:.4f}")
+        st.write(f"**Preprocessed Dataset :** {preprocessed_value:.4f}")
